@@ -1,1 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen Pilates Studio — Modern & Classic Pilates</title>
+<meta name="description" content="Lumen Pilates: small-group reformer and mat classes, expert instructors, a calm space. Book your first class online.">
 
+<!-- ========== GOOGLE FONTS: serif display + clean sans body ========== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Inline SVG favicon (no extra file needed for GitHub Pages) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23b9694e'/%3E%3Cpath d='M9 24V14a7 7 0 0 1 14 0v10z' fill='none' stroke='%23f6efe6' stroke-width='2'/%3E%3C/svg%3E">
+
+<style>
+/* =====================================================================
+   1. DESIGN TOKENS  (change colors / fonts / spacing here only)
+   ===================================================================== */
+:root{
+  /* Colors: warm neutrals + terracotta accent */
+  --cream:      #f6efe6;   /* page background            */
+  --sand:       #ebdfd0;   /* alternate section bg       */
+  --blush:      #e8cdbf;   /* soft decorative shapes     */
+  --clay:       #b9694e;   /* primary accent / buttons   */
+  --clay-dark:  #96503a;   /* button hover               */
+  --sage:       #8a9a7e;   /* secondary accent           */
+  --ink:        #2b2420;   /* headings & dark sections   */
+  --text:       #5a4f48;   /* body text                  */
+  --white:      #fffdf9;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --container: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --radius: 1.25rem;
+  --header-h: 76px;
+  --shadow: 0 18px 40px -22px rgba(43,36,32,.35);
+}
+
+/* =====================================================================
+   2. RESET & BASE
+   ===================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-behavior:smooth;                 /* smooth anchor scrolling (no JS) */
+  scroll-padding-top:var(--header-h);     /* keeps headings below sticky header */
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.75;
+  color:var(--text);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul{list-style:none;margin:0;padding:0}
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.1;
+  margin:0 0 .5em;
+  letter-spacing:-.01em;
+}
+h1{font-size:clamp(2.9rem,7vw,5.6rem)}
+h2{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+h3{font-size:1.65rem}
+p{margin:0 0 1.25em}
+em{font-style:italic;color:var(--clay)}
+:focus-visible{outline:2px solid var(--clay);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* =====================================================================
+   3. REUSABLE UTILITIES & COMPONENTS
+   ===================================================================== */
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:var(--section-y)}
+.section--sand{background:var(--sand)}
+.section--dark{background:var(--ink);color:#d9cfc4}
+.section--dark h2,.section--dark h3{color:var(--cream)}
+.center{text-align:center}
+.lead{font-size:1.2rem;max-width:36rem}
+.center .lead{margin-inline:auto}
+
+/* Small uppercase label above headings */
+.eyebrow{
+  display:inline-block;margin-bottom:1.1rem;
+  font-size:.78rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);
+}
+/* Short decorative line (stands in for the reference's separator graphic) */
+.divider{display:block;width:56px;height:1px;background:var(--clay);margin:1.5rem 0}
+.center .divider{margin-inline:auto}
+
+/* ---- Buttons ---- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.95rem 2rem;border-radius:999px;
+  font:500 .85rem/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--clay);
+  background:var(--clay);color:var(--white);
+  transition:background .25s,color .25s,transform .25s,box-shadow .25s;
+  cursor:pointer;
+}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.btn--light{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.btn--light:hover{background:var(--white);border-color:var(--white)}
+.btn--block{width:100%;justify-content:center}
+
+/* Underlined text link with arrow */
+.link-arrow{
+  display:inline-block;font-size:.85rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);border-bottom:1px solid var(--clay);padding-bottom:.3rem;
+  transition:color .25s,letter-spacing .25s;
+}
+.link-arrow::after{content:" →"}
+.link-arrow:hover{color:var(--clay);letter-spacing:.2em}
+
+/* ---- Illustration frames: fixed aspect-ratio keeps proportions at all sizes ----
+   To use real photos, replace the <svg> inside .frame with:
+   <img src="your-photo.jpg" alt="..." loading="lazy">  (object-fit keeps ratio) */
+.frame{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--blush);box-shadow:var(--shadow)}
+.frame > svg,.frame > img{width:100%;height:100%;object-fit:cover}
+.ratio-4-5{aspect-ratio:4/5}
+.ratio-1-1{aspect-ratio:1/1}
+.ratio-3-4{aspect-ratio:3/4}
+.arch{border-radius:999px 999px var(--radius) var(--radius)}   /* arch-shaped frame */
+
+/* =====================================================================
+   4. HEADER / NAVIGATION  (CSS-only mobile menu via hidden checkbox)
+   ===================================================================== */
+.site-header{
+  position:sticky;top:0;z-index:100;height:var(--header-h);
+  background:rgba(246,239,230,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(43,36,32,.08);
+}
+.site-header .container{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{font-family:var(--font-display);font-size:1.9rem;font-weight:600;color:var(--ink);letter-spacing:.02em;display:flex;align-items:center;gap:.6rem}
+.logo svg{width:30px;height:30px}
+.logo span{color:var(--clay);font-style:italic;font-weight:500}
+
+.nav-toggle{position:absolute;opacity:0;pointer-events:none}         /* hidden checkbox */
+.nav-burger{display:none;width:44px;height:44px;cursor:pointer;position:relative}
+.nav-burger span,.nav-burger::before,.nav-burger::after{
+  content:"";position:absolute;left:11px;right:11px;height:1.5px;background:var(--ink);transition:transform .3s,opacity .3s,top .3s;
+}
+.nav-burger::before{top:15px}.nav-burger span{top:21px}.nav-burger::after{top:27px}
+
+.nav-list{display:flex;align-items:center;gap:2.2rem}
+.nav-list a:not(.btn){
+  font-size:.82rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);position:relative;padding:.4rem 0;
+}
+.nav-list a:not(.btn)::after{   /* hover underline */
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--clay);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.nav-list a:not(.btn):hover::after{transform:scaleX(1)}
+.nav-list .btn{padding:.75rem 1.5rem}
+
+/* =====================================================================
+   5. HERO
+   ===================================================================== */
+.hero{padding-block:clamp(3rem,7vw,6rem) var(--section-y);overflow:hidden}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.hero h1 em{display:block}
+.hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.hero__meta{display:flex;gap:2.5rem;margin-top:3rem;padding-top:1.75rem;border-top:1px solid rgba(43,36,32,.12)}
+.hero__meta strong{display:block;font:500 2.2rem/1 var(--font-display);color:var(--ink)}
+.hero__meta span{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.hero__visual{position:relative}
+.hero__visual .stamp{   /* round rotating-looking badge, like the reference's "stamp" */
+  position:absolute;left:-2rem;bottom:2.5rem;width:120px;height:120px;border-radius:50%;
+  background:var(--ink);color:var(--cream);display:grid;place-items:center;text-align:center;
+  font:italic 500 1.05rem/1.15 var(--font-display);padding:1rem;box-shadow:var(--shadow);
+}
+
+/* =====================================================================
+   6. ABOUT  (two images + text, like "Wyższy poziom Pilatesu")
+   ===================================================================== */
+.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,7vw,6rem);align-items:center}
+.about__images{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:end}
+.about__images .frame:first-child{transform:translateY(-2.5rem)}
+.about__text .lead{margin-bottom:1.5rem}
+
+/* =====================================================================
+   7. CLASSES  (card grid)
+   ===================================================================== */
+.section-head{max-width:40rem;margin:0 auto clamp(2.5rem,5vw,4rem);text-align:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+.card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .35s,box-shadow .35s;
+}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.card .frame{border-radius:0;box-shadow:none;aspect-ratio:4/3}
+.card .frame svg{transition:transform .6s}
+.card:hover .frame svg{transform:scale(1.06)}      /* gentle image zoom on hover */
+.card__body{padding:1.75rem 1.75rem 2rem;display:flex;flex-direction:column;flex:1}
+.card__tag{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:.5rem}
+.card__body p{flex:1}
+
+/* =====================================================================
+   8. BENEFITS / FEATURES  (dark section, icon grid)
+   ===================================================================== */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem 2rem}
+.feature{padding-top:1.5rem;border-top:1px solid rgba(246,239,230,.2);transition:border-color .3s}
+.feature:hover{border-color:var(--blush)}
+.feature svg{width:38px;height:38px;stroke:var(--blush);fill:none;stroke-width:1.3;margin-bottom:1.25rem;transition:transform .3s}
+.feature:hover svg{transform:translateY(-4px)}
+.feature h3{font-size:1.5rem;margin-bottom:.4rem}
+.feature p{font-size:.98rem;margin:0}
+
+/* =====================================================================
+   9. CLUB / PRICING  (membership + packs)
+   ===================================================================== */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;align-items:stretch}
+.plan{
+  background:var(--white);border:1px solid rgba(43,36,32,.1);border-radius:var(--radius);
+  padding:2.25rem 2rem;display:flex;flex-direction:column;text-align:center;transition:transform .3s,box-shadow .3s;
+}
+.plan:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.plan--featured{background:var(--ink);color:#d9cfc4;border-color:var(--ink);position:relative}
+.plan--featured h3,.plan--featured .plan__price{color:var(--cream)}
+.plan__badge{
+  position:absolute;top:-.85rem;left:50%;transform:translateX(-50%);background:var(--clay);color:var(--white);
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;white-space:nowrap;
+}
+.plan__price{font:500 3.2rem/1 var(--font-display);color:var(--ink);margin:.75rem 0 .25rem}
+.plan__price small{font:300 1rem var(--font-body)}
+.plan ul{margin:1.5rem 0 2rem;flex:1;text-align:left}
+.plan li{padding:.55rem 0 .55rem 1.75rem;position:relative;border-bottom:1px solid rgba(128,110,95,.18);font-size:.98rem}
+.plan li::before{content:"";position:absolute;left:0;top:1.05rem;width:.9rem;height:.5rem;border-left:1.5px solid var(--clay);border-bottom:1.5px solid var(--clay);transform:rotate(-45deg) scale(.9)}
+
+/* =====================================================================
+   10. SCHEDULE  (weekly timetable — links to booking)
+   ===================================================================== */
+.schedule{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.day{background:var(--cream);border-radius:var(--radius);padding:1.5rem 1.25rem}
+.day h3{font-size:1.4rem;padding-bottom:.75rem;margin-bottom:.75rem;border-bottom:1px solid rgba(43,36,32,.12)}
+.slot{display:block;padding:.6rem .7rem;margin:0 -.7rem;border-radius:.6rem;font-size:.95rem;line-height:1.4;transition:background .25s,color .25s}
+.slot b{display:block;font-weight:500;color:var(--ink)}
+.slot:hover{background:var(--clay);color:var(--white)}
+.slot:hover b{color:var(--white)}
+.schedule-cta{margin-top:2.5rem;text-align:center}
+
+/* =====================================================================
+   11. GALLERY  (Instagram-style tile grid)
+   ===================================================================== */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.gallery .frame{aspect-ratio:1/1;border-radius:.9rem;box-shadow:none}
+.gallery .frame svg{transition:transform .6s}
+.gallery .frame:hover svg{transform:scale(1.08)}
+
+/* =====================================================================
+   12. TESTIMONIALS  (replaces the "press" strip)
+   ===================================================================== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.quote{margin:0;padding:2rem;background:var(--white);border-radius:var(--radius)}
+.quote blockquote{margin:0 0 1.25rem;font:italic 400 1.4rem/1.45 var(--font-display);color:var(--ink)}
+.quote cite{font-style:normal;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);font-weight:500}
+.stars{color:var(--clay);letter-spacing:.2em;margin-bottom:.75rem}
+
+/* =====================================================================
+   13. FAQ  (native <details>, no JS)
+   ===================================================================== */
+.faq{max-width:46rem;margin-inline:auto}
+.faq details{border-bottom:1px solid rgba(43,36,32,.15);padding:1.25rem 0}
+.faq summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  font:500 1.5rem/1.2 var(--font-display);color:var(--ink);transition:color .25s;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 1.8rem/1 var(--font-body);color:var(--clay);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--clay)}
+.faq details p{margin:.9rem 0 0}
+
+/* =====================================================================
+   14. CONTACT  (info + booking form via mailto — works on GitHub Pages)
+   ===================================================================== */
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem)}
+.contact__list{margin-top:2rem;display:grid;gap:1.4rem}
+.contact__list dt{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--clay);font-weight:500;margin-bottom:.2rem}
+.contact__list dd{margin:0;color:var(--ink)}
+.contact__list a:hover{color:var(--clay)}
+.form{background:var(--white);padding:clamp(1.75rem,4vw,2.75rem);border-radius:var(--radius);box-shadow:var(--shadow)}
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:.45rem;font-weight:500}
+.field input,.field select,.field textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);padding:.85rem 1rem;
+  background:var(--cream);border:1px solid transparent;border-radius:.7rem;transition:border-color .25s,background .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--clay);background:var(--white)}
+.field textarea{resize:vertical;min-height:110px}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+/* Map placeholder */
+.map{margin-top:2rem;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden}
+.map iframe{width:100%;height:100%;border:0}
+
+/* =====================================================================
+   15. FOOTER
+   ===================================================================== */
+.site-footer{background:var(--ink);color:#b8aca0;padding-block:4rem 2rem;font-size:.95rem}
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(246,239,230,.14)}
+.site-footer .logo{color:var(--cream);margin-bottom:1rem}
+.site-footer h4{font:500 .76rem var(--font-body);letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin:0 0 1.1rem}
+.site-footer li{margin-bottom:.55rem}
+.site-footer a{transition:color .25s}
+.site-footer a:hover{color:var(--blush)}
+.footer__bottom{padding-top:1.75rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.85rem}
+
+/* =====================================================================
+   16. RESPONSIVE BREAKPOINTS
+   ===================================================================== */
+/* ---- Tablet (≤ 1024px) ---- */
+@media (max-width:1024px){
+  .features{grid-template-columns:repeat(2,1fr)}
+  .schedule{grid-template-columns:repeat(3,1fr)}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .cards .card:last-child{grid-column:1/-1}
+  .cards .card:last-child .frame{aspect-ratio:16/7}
+  .quotes{grid-template-columns:1fr}
+}
+
+/* ---- Mobile nav + stacked layouts (≤ 860px) ---- */
+@media (max-width:860px){
+  .nav-burger{display:block}
+  .nav-list{
+    position:absolute;top:var(--header-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--cream);padding:1rem var(--gutter) 2rem;border-bottom:1px solid rgba(43,36,32,.1);
+    box-shadow:0 20px 30px -20px rgba(43,36,32,.3);
+    max-height:0;overflow:hidden;opacity:0;visibility:hidden;padding-block:0;transition:all .35s;
+  }
+  .nav-list li{border-bottom:1px solid rgba(43,36,32,.08)}
+  .nav-list li:last-child{border:0;padding-top:1.25rem}
+  .nav-list a:not(.btn){display:block;padding:1rem 0;font-size:.9rem}
+  .nav-list .btn{width:100%;justify-content:center}
+  .nav-toggle:checked ~ .nav-list{max-height:520px;opacity:1;visibility:visible;padding-block:1rem 2rem}
+  .nav-toggle:checked ~ .nav-burger::before{top:21px;transform:rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span{opacity:0}
+  .nav-toggle:checked ~ .nav-burger::after{top:21px;transform:rotate(-45deg)}
+  .nav-toggle:focus-visible ~ .nav-burger{outline:2px solid var(--clay);border-radius:6px}
+
+  .hero__grid,.about__grid,.contact__grid{grid-template-columns:1fr}
+  .hero__visual{max-width:440px;margin-inline:auto;order:-1}   /* image first on mobile */
+  .hero__visual .stamp{left:-.5rem;width:100px;height:100px;font-size:.92rem}
+  .about__images{max-width:520px}
+  .pricing{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .footer__grid > :first-child{grid-column:1/-1}
+}
+
+/* ---- Small phones (≤ 600px) ---- */
+@media (max-width:600px){
+  body{font-size:1rem}
+  .cards,.features{grid-template-columns:1fr}
+  .cards .card:last-child .frame{aspect-ratio:4/3}
+  .schedule{grid-template-columns:1fr 1fr}
+  .hero__meta{gap:1.5rem;flex-wrap:wrap}
+  .hero__actions .btn{width:100%;justify-content:center}
+  .form__row{grid-template-columns:1fr}
+  .gallery{gap:.6rem}
+  .footer__grid{grid-template-columns:1fr}
+  .about__images .frame:first-child{transform:translateY(-1.25rem)}
+}
+@media (max-width:380px){.schedule{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================================
+     HEADER + NAVIGATION
+     The hidden checkbox (#nav-toggle) + <label> drive the mobile menu with CSS only.
+     ===================================================================== -->
+<header class="site-header">
+  <div class="container">
+    <a href="#top" class="logo" aria-label="Lumen Pilates — home">
+      <!-- Simple arch logo mark (original artwork) -->
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 27V15a10 10 0 0 1 20 0v12" fill="none" stroke="#b9694e" stroke-width="2"/><path d="M11 27V16a5 5 0 0 1 10 0v11" fill="none" stroke="#2b2420" stroke-width="2"/></svg>
+      Lumen <span>Pilates</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span></label>
+
+    <nav aria-label="Main">
+      <ul class="nav-list" style="margin:0">
+        <li><a href="#about">Studio</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#book" class="btn">Book now</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- =====================================================================
+     HERO — eyebrow, big serif title, subtitle, CTA, quick stats, image
+     ===================================================================== -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <span class="eyebrow">Boutique Pilates Studio · Downtown</span>
+      <h1>Modern &amp; <em>classic</em> Pilates</h1>
+      <span class="divider"></span>
+      <p class="lead">Small-group reformer and mat classes led by certified instructors, in a calm space designed to help you move well, feel strong and stay consistent.</p>
+      <div class="hero__actions">
+        <a href="#book" class="btn">Book your first class</a>
+        <a href="#classes" class="btn btn--ghost">Explore classes</a>
+      </div>
+      <div class="hero__meta">
+        <div><strong>8</strong><span>Max per class</span></div>
+        <div><strong>40+</strong><span>Weekly classes</span></div>
+        <div><strong>4.9★</strong><span>Member rating</span></div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <!-- Illustration: arch frame with abstract figure. Swap for a photo if desired. -->
+      <div class="frame arch ratio-4-5">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Abstract illustration of a woman in a Pilates pose">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efd9cb"/><stop offset="1" stop-color="#d9a68f"/></linearGradient></defs>
+          <rect width="400" height="500" fill="url(#g1)"/>
+          <circle cx="285" cy="130" r="70" fill="#f6efe6" opacity=".7"/>
+          <path d="M0 380 Q120 330 230 372 T400 350 V500 H0Z" fill="#8a9a7e" opacity=".55"/>
+          <path d="M0 430 Q140 390 260 425 T400 410 V500 H0Z" fill="#b9694e" opacity=".85"/>
+          <!-- figure: simple stylised bridge pose -->
+          <circle cx="112" cy="332" r="17" fill="#2b2420"/>
+          <path d="M126 342 Q200 262 262 330" fill="none" stroke="#2b2420" stroke-width="15" stroke-linecap="round"/>
+          <path d="M262 330 L300 408 M262 330 L228 408" fill="none" stroke="#2b2420" stroke-width="13" stroke-linecap="round"/>
+          <path d="M110 350 L150 400" stroke="#2b2420" stroke-width="11" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="stamp">Move<br>with<br>intention</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     ABOUT — "A higher level of Pilates": text + two staggered images
+     ===================================================================== -->
+<section class="section section--sand" id="about">
+  <div class="container about__grid">
+    <div class="about__images">
+      <div class="frame ratio-3-4">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Reformer machine illustration">
+          <rect width="300" height="400" fill="#8a9a7e"/>
+          <circle cx="230" cy="90" r="55" fill="#e8cdbf" opacity=".6"/>
+          <rect x="40" y="250" width="220" height="22" rx="11" fill="#f6efe6"/>
+          <rect x="60" y="272" width="10" height="60" fill="#2b2420"/><rect x="230" y="272" width="10" height="60" fill="#2b2420"/>
+          <rect x="95" y="228" width="70" height="22" rx="8" fill="#b9694e"/>
+          <path d="M45 250 V200 H75" fill="none" stroke="#2b2420" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="frame ratio-3-4">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studio light illustration">
+          <rect width="300" height="400" fill="#e8cdbf"/>
+          <rect x="50" y="60" width="200" height="280" rx="100" fill="#f6efe6"/>
+          <rect x="80" y="90" width="140" height="220" rx="70" fill="#b9694e" opacity=".85"/>
+          <circle cx="150" cy="200" r="38" fill="#f6efe6" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="about__text">
+      <span class="eyebrow">About the studio</span>
+      <h2>A higher level of <em>Pilates</em></h2>
+      <span class="divider"></span>
+      <p class="lead">Lumen is a place for people who want more than a workout. We blend the discipline of classical Pilates with contemporary, strength-focused programming.</p>
+      <p>Every class is capped at eight people, so your instructor can see and correct every movement. Whether you're brand new or years into your practice, you'll leave feeling taller, stronger and calmer.</p>
+      <a href="#classes" class="link-arrow">Meet our approach</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CLASSES — three cards (image + tag + title + text + link)
+     ===================================================================== -->
+<section class="section" id="classes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our classes</span>
+      <h2>Training for every <em>body</em></h2>
+      <p class="lead">Choose the format that fits your goals, then build a rhythm you'll love.</p>
+    </div>
+
+    <div class="cards">
+      <!-- Card 1 -->
+      <article class="card">
+        <div class="frame">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="300" fill="#b9694e"/><circle cx="310" cy="80" r="60" fill="#e8cdbf" opacity=".5"/>
+            <rect x="60" y="170" width="280" height="20" rx="10" fill="#f6efe6"/><rect x="110" y="150" width="80" height="20" rx="8" fill="#2b2420"/>
+            <rect x="80" y="190" width="8" height="50" fill="#2b2420"/><rect x="312" y="190" width="8" height="50" fill="#2b2420"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <span class="card__tag">All levels · 55 min</span>
+          <h3>Reformer Flow</h3>
+          <p>Spring-resistance training that builds long, lean strength and body awareness.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+      <!-- Card 2 -->
+      <article class="card">
+        <div class="frame">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="300" fill="#8a9a7e"/><circle cx="90" cy="70" r="50" fill="#f6efe6" opacity=".35"/>
+            <rect x="40" y="200" width="320" height="14" rx="7" fill="#f6efe6"/>
+            <path d="M80 200 Q200 90 320 200" fill="none" stroke="#2b2420" stroke-width="14" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <span class="card__tag">Beginner friendly · 50 min</span>
+          <h3>Mat Foundations</h3>
+          <p>Classical principles—breath, control, precision—taught step by step on the mat.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+      <!-- Card 3 -->
+      <article class="card">
+        <div class="frame">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="300" fill="#2b2420"/><circle cx="320" cy="70" r="46" fill="#b9694e"/>
+            <circle cx="200" cy="170" r="70" fill="none" stroke="#e8cdbf" stroke-width="12"/><circle cx="200" cy="170" r="30" fill="#e8cdbf" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <span class="card__tag">Intermediate · 55 min</span>
+          <h3>Sculpt &amp; Strength</h3>
+          <p>Props, tempo and challenge: a dynamic session to sharpen your core and posture.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     BENEFITS — dark section with four icon features
+     ===================================================================== -->
+<section class="section section--dark" id="benefits">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Lumen</span>
+      <h2>Small details, <em>big</em> difference</h2>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/><path d="M13 21l5 5 9-11"/></svg>
+        <h3>Certified instructors</h3><p>Internationally trained teachers with years of studio experience.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><circle cx="14" cy="14" r="6"/><circle cx="27" cy="16" r="5"/><path d="M4 33c1-7 6-10 10-10s9 3 10 10M24 25c5 0 9 3 12 8"/></svg>
+        <h3>Max 8 per class</h3><p>Personal attention and corrections in every single session.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><path d="M6 28c4-14 12-18 28-18-1 14-6 22-20 24"/><path d="M6 34c6-8 12-12 18-14"/></svg>
+        <h3>Posture &amp; mobility</h3><p>Build a stronger core, healthier spine and freer movement.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><rect x="6" y="9" width="28" height="25" rx="3"/><path d="M6 17h28M13 5v7M27 5v7"/></svg>
+        <h3>Easy online booking</h3><p>Reserve, reschedule or cancel in seconds—anytime, from any device.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PRICING / CLUB — membership and class packs
+     ===================================================================== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Lumen Club</span>
+      <h2>Simple, flexible <em>pricing</em></h2>
+      <p class="lead">Members enjoy priority booking, studio events and a 48-hour booking window.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Drop-in</h3>
+        <div class="plan__price">$28<small> / class</small></div>
+        <ul><li>Any class, any time</li><li>Mat &amp; towel included</li><li>No commitment</li></ul>
+        <a href="#book" class="btn btn--ghost btn--block">Book a class</a>
+      </div>
+      <div class="plan plan--featured">
+        <span class="plan__badge">Most popular</span>
+        <h3>Club Membership</h3>
+        <div class="plan__price">$149<small> / month</small></div>
+        <ul><li>8 classes per month</li><li>Priority booking window</li><li>10% off workshops</li><li>Bring-a-friend pass</li></ul>
+        <a href="#book" class="btn btn--light btn--block">Join the Club</a>
+      </div>
+      <div class="plan">
+        <h3>10-Class Pack</h3>
+        <div class="plan__price">$240</div>
+        <ul><li>Valid for 4 months</li><li>Shareable with a friend</li><li>Reformer or mat</li></ul>
+        <a href="#book" class="btn btn--ghost btn--block">Buy a pack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     SCHEDULE — weekly timetable; every slot links to booking
+     ===================================================================== -->
+<section class="section section--sand" id="schedule">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Weekly schedule</span>
+      <h2>Find your <em>time</em></h2>
+      <p class="lead">Tap a class to reserve your spot.</p>
+    </div>
+    <div class="schedule">
+      <div class="day"><h3>Mon</h3>
+        <a class="slot" href="#book"><b>07:30</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>12:15</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>18:30</b>Sculpt &amp; Strength</a></div>
+      <div class="day"><h3>Tue</h3>
+        <a class="slot" href="#book"><b>08:00</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>17:45</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>19:00</b>Reformer Flow</a></div>
+      <div class="day"><h3>Wed</h3>
+        <a class="slot" href="#book"><b>07:30</b>Sculpt &amp; Strength</a>
+        <a class="slot" href="#book"><b>12:15</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>18:30</b>Mat Foundations</a></div>
+      <div class="day"><h3>Thu</h3>
+        <a class="slot" href="#book"><b>08:00</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>17:45</b>Sculpt &amp; Strength</a>
+        <a class="slot" href="#book"><b>19:00</b>Mat Foundations</a></div>
+      <div class="day"><h3>Sat</h3>
+        <a class="slot" href="#book"><b>09:30</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>11:00</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>12:30</b>Sculpt &amp; Strength</a></div>
+    </div>
+    <div class="schedule-cta"><a href="#book" class="btn">Reserve a spot</a></div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     GALLERY — Instagram-style tile grid
+     ===================================================================== -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">@lumenpilates</span>
+      <h2>Life at the <em>studio</em></h2>
+    </div>
+    <div class="gallery">
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#e8cdbf"/><circle cx="150" cy="150" r="80" fill="#b9694e"/><circle cx="150" cy="150" r="36" fill="#f6efe6"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#8a9a7e"/><path d="M0 220 Q150 100 300 220V300H0Z" fill="#f6efe6" opacity=".8"/><circle cx="220" cy="80" r="30" fill="#e8cdbf"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#2b2420"/><rect x="70" y="60" width="160" height="180" rx="80" fill="none" stroke="#e8cdbf" stroke-width="10"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#b9694e"/><path d="M40 230 L150 70 L260 230Z" fill="#f6efe6" opacity=".85"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#ebdfd0"/><circle cx="100" cy="110" r="60" fill="#8a9a7e"/><circle cx="190" cy="190" r="60" fill="#b9694e" opacity=".85"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#b9694e"/><rect x="40" y="130" width="220" height="16" rx="8" fill="#f6efe6"/><rect x="80" y="110" width="60" height="20" rx="6" fill="#2b2420"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#e8cdbf"/><path d="M0 180 Q75 120 150 180 T300 180V300H0Z" fill="#8a9a7e"/></svg></div>
+      <div class="frame"><svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="300" fill="#8a9a7e"/><circle cx="150" cy="150" r="90" fill="none" stroke="#f6efe6" stroke-width="8"/><circle cx="150" cy="150" r="50" fill="none" stroke="#f6efe6" stroke-width="8"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     TESTIMONIALS — replaces the reference's "press" strip
+     ===================================================================== -->
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Kind words</span>
+      <h2>What members <em>say</em></h2>
+    </div>
+    <div class="quotes">
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>“The most welcoming studio I've ever practised in. My back pain is gone.”</blockquote><cite>— Maria K.</cite></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>“Small classes and brilliant teachers. I finally look forward to workouts.”</blockquote><cite>— Daniel S.</cite></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>“Booking is effortless and every class feels like a reset for the week.”</blockquote><cite>— Anna P.</cite></figure>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FAQ — native <details> accordion (no JavaScript)
+     ===================================================================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good to <em>know</em></h2>
+    </div>
+    <div class="faq">
+      <details open><summary>I'm a complete beginner. Can I join?</summary><p>Absolutely. Start with Mat Foundations or a beginner Reformer Flow; your instructor will guide you through every move.</p></details>
+      <details><summary>What should I wear?</summary><p>Comfortable, fitted activewear and grip socks (available to buy at reception).</p></details>
+      <details><summary>How do I cancel or reschedule?</summary><p>You can cancel free of charge up to 8 hours before class from your booking confirmation.</p></details>
+      <details><summary>Do you offer private sessions?</summary><p>Yes — one-to-one and duo sessions are available. Get in touch below and we'll match you with an instructor.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     BOOKING + CONTACT — final CTA, info, form (mailto) and map
+     Replace hello@lumenpilates.example with your real address.
+     ===================================================================== -->
+<section class="section section--sand" id="book">
+  <div class="container center">
+    <span class="eyebrow">Ready when you are</span>
+    <h2>Your first class is <em>on us</em></h2>
+    <span class="divider"></span>
+    <p class="lead">New to Lumen? Book an intro class and take the first step. Spots fill quickly.</p>
+    <a href="#contact" class="btn">Book your free intro class</a>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container contact__grid">
+    <div>
+      <span class="eyebrow">Contact</span>
+      <h2>Say <em>hello</em></h2>
+      <p class="lead">Questions, private sessions or corporate groups? Write to us or send a booking request.</p>
+      <dl class="contact__list">
+        <div><dt>Studio</dt><dd>12 Linden Street, Downtown<br>Your City, 10001</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:hello@lumenpilates.example">hello@lumenpilates.example</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+10000000000">+1 (000) 000-0000</a></dd></div>
+        <div><dt>Hours</dt><dd>Mon–Fri 07:00–21:00 · Sat 09:00–14:00</dd></div>
+      </dl>
+    </div>
+
+    <!-- Form uses mailto so it works on static GitHub Pages without JS or a backend -->
+    <form class="form" action="mailto:hello@lumenpilates.example" method="post" enctype="text/plain">
+      <div class="form__row">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="field"><label for="cls">Class</label>
+        <select id="cls" name="class"><option>Intro class (free)</option><option>Reformer Flow</option><option>Mat Foundations</option><option>Sculpt &amp; Strength</option><option>Private session</option></select></div>
+      <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" placeholder="Preferred day and time…"></textarea></div>
+      <button type="submit" class="btn btn--block">Send booking request</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     FOOTER
+     ===================================================================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="#top" class="logo">Lumen <span>Pilates</span></a>
+        <p style="max-width:22rem">Modern &amp; classic Pilates in small groups. Move well. Feel strong.</p>
+        <a href="#book" class="btn btn--light" style="margin-top:.5rem">Book now</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#about">Studio</a></li><li><a href="#classes">Classes</a></li><li><a href="#schedule">Schedule</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="mailto:hello@lumenpilates.example">hello@lumenpilates.example</a></li><li>12 Linden Street</li><li>Mon–Sat · see hours above</li></ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Lumen Pilates. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
