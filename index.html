@@ -1,1 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polka Pilates — Modern & Classic Pilates</title>
+<meta name="description" content="Polka Pilates: small-group reformer and mat classes, expert instructors, a calm space. Book your first class online.">
 
+<!-- ========== GOOGLE FONTS: serif display + clean sans body ========== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" href="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/images.jpg?v=1792592863">
+
+<style>
+/* =====================================================================
+   1. DESIGN TOKENS  (soft pink + cream beige palette)
+   ===================================================================== */
+:root{
+  --cream:      #fff0f5;
+  --sand:       #fdf6f0;
+  --blush:      #f5d5d5;
+  --clay:       #d4a5a5;
+  --clay-dark:  #b88a8a;
+  --sage:       #c9a5b8;
+  --ink:        #2b2420;
+  --text:       #5a4f48;
+  --white:      #fffaf5;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --container: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --radius: 1.25rem;
+  --header-h: 76px;
+  --shadow: 0 18px 40px -22px rgba(43,36,32,.25);
+
+  /* Pattern SVG URL */
+  --pattern-url: url('https://cdn.shopify.com/s/files/1/0762/4107/6293/files/1.svg?v=1792594734');
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:var(--header-h);
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.75;
+  color:var(--text);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul{list-style:none;margin:0;padding:0}
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.1;
+  margin:0 0 .5em;
+  letter-spacing:-.01em;
+}
+h1{font-size:clamp(2.9rem,7vw,5.6rem)}
+h2{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+h3{font-size:1.65rem}
+p{margin:0 0 1.25em}
+em{font-style:italic;color:var(--clay-dark)}
+:focus-visible{outline:2px solid var(--clay);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* =====================================================================
+   3. REUSABLE UTILITIES & COMPONENTS
+   ===================================================================== */
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:var(--section-y)}
+.section--sand{background:var(--sand)}
+.section--dark{background:var(--ink);color:#d9cfc4}
+.section--dark h2,.section--dark h3{color:var(--cream)}
+.center{text-align:center}
+.lead{font-size:1.2rem;max-width:36rem}
+.center .lead{margin-inline:auto}
+
+.eyebrow{
+  display:inline-block;margin-bottom:1.1rem;
+  font-size:.78rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--clay-dark);
+}
+.divider{display:block;width:56px;height:1px;background:var(--clay);margin:1.5rem 0}
+.center .divider{margin-inline:auto}
+
+/* ---- Buttons ---- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.95rem 2rem;border-radius:999px;
+  font:500 .85rem/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--clay);
+  background:var(--clay);color:var(--white);
+  transition:background .25s,color .25s,transform .25s,box-shadow .25s;
+  cursor:pointer;
+}
+.btn:hover{background:var(--clay-dark);border-color:var(--clay-dark);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.btn--light{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.btn--light:hover{background:var(--white);border-color:var(--white)}
+.btn--block{width:100%;justify-content:center}
+
+.link-arrow{
+  display:inline-block;font-size:.85rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);border-bottom:1px solid var(--clay);padding-bottom:.3rem;
+  transition:color .25s,letter-spacing .25s;
+}
+.link-arrow::after{content:" →"}
+.link-arrow:hover{color:var(--clay-dark);letter-spacing:.2em}
+
+/* ---- Frames ---- */
+.frame{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--blush);box-shadow:var(--shadow)}
+.frame > svg,.frame > img{width:100%;height:100%;object-fit:cover}
+.ratio-4-5{aspect-ratio:4/5}
+.ratio-1-1{aspect-ratio:1/1}
+.ratio-3-4{aspect-ratio:3/4}
+.arch{border-radius:999px 999px var(--radius) var(--radius)}
+
+/* ---- Decorative pattern layer (reusable) ---- */
+.pattern-bg{
+  position:relative;
+}
+.pattern-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--pattern-url);
+  background-repeat:repeat;
+  background-size:180px 180px;
+  opacity:0.06;
+  pointer-events:none;
+  z-index:0;
+}
+.pattern-bg > *{position:relative;z-index:1}
+
+.pattern-bg--strong::before{opacity:0.12}
+.pattern-bg--soft::before{opacity:0.04}
+
+/* =====================================================================
+   4. HEADER / NAVIGATION
+   ===================================================================== */
+.site-header{
+  position:sticky;top:0;z-index:100;height:var(--header-h);
+  background:rgba(255,240,245,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(43,36,32,.08);
+}
+.site-header .container{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.6rem}
+.logo img{height:48px;width:auto}
+
+.nav-toggle{position:absolute;opacity:0;pointer-events:none}
+.nav-burger{display:none;width:44px;height:44px;cursor:pointer;position:relative}
+.nav-burger span,.nav-burger::before,.nav-burger::after{
+  content:"";position:absolute;left:11px;right:11px;height:1.5px;background:var(--ink);transition:transform .3s,opacity .3s,top .3s;
+}
+.nav-burger::before{top:15px}.nav-burger span{top:21px}.nav-burger::after{top:27px}
+
+.nav-list{display:flex;align-items:center;gap:2.2rem}
+.nav-list a:not(.btn){
+  font-size:.82rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);position:relative;padding:.4rem 0;
+}
+.nav-list a:not(.btn)::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--clay);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.nav-list a:not(.btn):hover::after{transform:scaleX(1)}
+.nav-list .btn{padding:.75rem 1.5rem}
+
+/* =====================================================================
+   5. HERO
+   ===================================================================== */
+.hero{padding-block:clamp(3rem,7vw,6rem) var(--section-y);overflow:hidden}
+.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.hero h1 em{display:block}
+.hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.hero__meta{display:flex;gap:2.5rem;margin-top:3rem;padding-top:1.75rem;border-top:1px solid rgba(43,36,32,.12)}
+.hero__meta strong{display:block;font:500 2.2rem/1 var(--font-display);color:var(--ink)}
+.hero__meta span{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.hero__visual{position:relative}
+.hero__visual .stamp{
+  position:absolute;left:-2rem;bottom:2.5rem;width:120px;height:120px;border-radius:50%;
+  background:var(--ink);color:var(--cream);display:grid;place-items:center;text-align:center;
+  font:italic 500 1.05rem/1.15 var(--font-display);padding:1rem;box-shadow:var(--shadow);
+}
+
+/* =====================================================================
+   6. ABOUT
+   ===================================================================== */
+.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,7vw,6rem);align-items:center}
+.about__images{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:end}
+.about__images .frame:first-child{transform:translateY(-2.5rem)}
+.about__text .lead{margin-bottom:1.5rem}
+
+/* =====================================================================
+   7. CLASSES
+   ===================================================================== */
+.section-head{max-width:40rem;margin:0 auto clamp(2.5rem,5vw,4rem);text-align:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+.card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .35s,box-shadow .35s;
+}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.card .frame{border-radius:0;box-shadow:none;aspect-ratio:4/3}
+.card .frame svg,.card .frame img{transition:transform .6s}
+.card:hover .frame svg,.card:hover .frame img{transform:scale(1.06)}
+.card__body{padding:1.75rem 1.75rem 2rem;display:flex;flex-direction:column;flex:1}
+.card__tag{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:.5rem}
+.card__body p{flex:1}
+
+/* =====================================================================
+   8. BENEFITS / FEATURES  (dark section — kept same)
+   ===================================================================== */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem 2rem}
+.feature{padding-top:1.5rem;border-top:1px solid rgba(246,239,230,.2);transition:border-color .3s}
+.feature:hover{border-color:var(--blush)}
+.feature svg{width:38px;height:38px;stroke:var(--blush);fill:none;stroke-width:1.3;margin-bottom:1.25rem;transition:transform .3s}
+.feature:hover svg{transform:translateY(-4px)}
+.feature h3{font-size:1.5rem;margin-bottom:.4rem}
+.feature p{font-size:.98rem;margin:0}
+
+/* =====================================================================
+   9. CLUB / PRICING
+   ===================================================================== */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;align-items:stretch}
+.plan{
+  background:var(--white);border:1px solid rgba(43,36,32,.1);border-radius:var(--radius);
+  padding:2.25rem 2rem;display:flex;flex-direction:column;text-align:center;transition:transform .3s,box-shadow .3s;
+}
+.plan:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.plan--featured{background:var(--ink);color:#d9cfc4;border-color:var(--ink);position:relative}
+.plan--featured h3,.plan--featured .plan__price{color:var(--cream)}
+.plan__badge{
+  position:absolute;top:-.85rem;left:50%;transform:translateX(-50%);background:var(--clay);color:var(--white);
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;white-space:nowrap;
+}
+.plan__price{font:500 3.2rem/1 var(--font-display);color:var(--ink);margin:.75rem 0 .25rem}
+.plan__price small{font:300 1rem var(--font-body)}
+.plan ul{margin:1.5rem 0 2rem;flex:1;text-align:left}
+.plan li{padding:.55rem 0 .55rem 1.75rem;position:relative;border-bottom:1px solid rgba(128,110,95,.18);font-size:.98rem}
+.plan li::before{content:"";position:absolute;left:0;top:1.05rem;width:.9rem;height:.5rem;border-left:1.5px solid var(--clay);border-bottom:1.5px solid var(--clay);transform:rotate(-45deg) scale(.9)}
+
+/* =====================================================================
+   10. SCHEDULE
+   ===================================================================== */
+.schedule{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.day{background:var(--cream);border-radius:var(--radius);padding:1.5rem 1.25rem}
+.day h3{font-size:1.4rem;padding-bottom:.75rem;margin-bottom:.75rem;border-bottom:1px solid rgba(43,36,32,.12)}
+.slot{display:block;padding:.6rem .7rem;margin:0 -.7rem;border-radius:.6rem;font-size:.95rem;line-height:1.4;transition:background .25s,color .25s}
+.slot b{display:block;font-weight:500;color:var(--ink)}
+.slot:hover{background:var(--clay);color:var(--white)}
+.slot:hover b{color:var(--white)}
+.schedule-cta{margin-top:2.5rem;text-align:center}
+
+/* =====================================================================
+   11. GALLERY
+   ===================================================================== */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.gallery .frame{aspect-ratio:1/1;border-radius:.9rem;box-shadow:none}
+.gallery .frame img{transition:transform .6s}
+.gallery .frame:hover img{transform:scale(1.08)}
+
+/* =====================================================================
+   12. TESTIMONIALS
+   ===================================================================== */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.quote{margin:0;padding:2rem;background:var(--white);border-radius:var(--radius)}
+.quote blockquote{margin:0 0 1.25rem;font:italic 400 1.4rem/1.45 var(--font-display);color:var(--ink)}
+.quote cite{font-style:normal;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay-dark);font-weight:500}
+.stars{color:var(--clay);letter-spacing:.2em;margin-bottom:.75rem}
+
+/* =====================================================================
+   13. FAQ
+   ===================================================================== */
+.faq{max-width:46rem;margin-inline:auto}
+.faq details{border-bottom:1px solid rgba(43,36,32,.15);padding:1.25rem 0}
+.faq summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  font:500 1.5rem/1.2 var(--font-display);color:var(--ink);transition:color .25s;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 1.8rem/1 var(--font-body);color:var(--clay-dark);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--clay-dark)}
+.faq details p{margin:.9rem 0 0}
+
+/* =====================================================================
+   14. CONTACT
+   ===================================================================== */
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem)}
+.contact__list{margin-top:2rem;display:grid;gap:1.4rem}
+.contact__list dt{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-dark);font-weight:500;margin-bottom:.2rem}
+.contact__list dd{margin:0;color:var(--ink)}
+.contact__list a:hover{color:var(--clay-dark)}
+.form{background:var(--white);padding:clamp(1.75rem,4vw,2.75rem);border-radius:var(--radius);box-shadow:var(--shadow)}
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:.45rem;font-weight:500}
+.field input,.field select,.field textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);padding:.85rem 1rem;
+  background:var(--cream);border:1px solid transparent;border-radius:.7rem;transition:border-color .25s,background .25s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--clay);background:var(--white)}
+.field textarea{resize:vertical;min-height:110px}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.map{margin-top:2rem;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden}
+.map iframe{width:100%;height:100%;border:0}
+
+/* =====================================================================
+   15. FOOTER
+   ===================================================================== */
+.site-footer{
+  background:var(--ink);color:#b8aca0;padding-block:4rem 2rem;font-size:.95rem;
+  position:relative;overflow:hidden;
+}
+.site-footer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--pattern-url);
+  background-repeat:repeat;
+  background-size:220px 220px;
+  opacity:0.08;
+  pointer-events:none;
+  z-index:0;
+}
+.site-footer > .container{position:relative;z-index:1}
+
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(246,239,230,.14)}
+.site-footer .logo{margin-bottom:1rem}
+.site-footer .logo img{height:42px}
+.site-footer h4{font:500 .76rem var(--font-body);letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin:0 0 1.1rem}
+.site-footer li{margin-bottom:.55rem}
+.site-footer a{transition:color .25s}
+.site-footer a:hover{color:var(--blush)}
+.footer__bottom{padding-top:1.75rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.85rem}
+
+/* =====================================================================
+   16. RESPONSIVE BREAKPOINTS
+   ===================================================================== */
+@media (max-width:1024px){
+  .features{grid-template-columns:repeat(2,1fr)}
+  .schedule{grid-template-columns:repeat(3,1fr)}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .cards .card:last-child{grid-column:1/-1}
+  .cards .card:last-child .frame{aspect-ratio:16/7}
+  .quotes{grid-template-columns:1fr}
+}
+
+@media (max-width:860px){
+  .nav-burger{display:block}
+  .nav-list{
+    position:absolute;top:var(--header-h);left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--cream);padding:1rem var(--gutter) 2rem;border-bottom:1px solid rgba(43,36,32,.1);
+    box-shadow:0 20px 30px -20px rgba(43,36,32,.3);
+    max-height:0;overflow:hidden;opacity:0;visibility:hidden;padding-block:0;transition:all .35s;
+  }
+  .nav-list li{border-bottom:1px solid rgba(43,36,32,.08)}
+  .nav-list li:last-child{border:0;padding-top:1.25rem}
+  .nav-list a:not(.btn){display:block;padding:1rem 0;font-size:.9rem}
+  .nav-list .btn{width:100%;justify-content:center}
+  .nav-toggle:checked ~ .nav-list{max-height:520px;opacity:1;visibility:visible;padding-block:1rem 2rem}
+  .nav-toggle:checked ~ .nav-burger::before{top:21px;transform:rotate(45deg)}
+  .nav-toggle:checked ~ .nav-burger span{opacity:0}
+  .nav-toggle:checked ~ .nav-burger::after{top:21px;transform:rotate(-45deg)}
+  .nav-toggle:focus-visible ~ .nav-burger{outline:2px solid var(--clay);border-radius:6px}
+
+  .hero__grid,.about__grid,.contact__grid{grid-template-columns:1fr}
+  .hero__visual{max-width:440px;margin-inline:auto;order:-1}
+  .hero__visual .stamp{left:-.5rem;width:100px;height:100px;font-size:.92rem}
+  .about__images{max-width:520px}
+  .pricing{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .footer__grid > :first-child{grid-column:1/-1}
+}
+
+@media (max-width:600px){
+  body{font-size:1rem}
+  .cards,.features{grid-template-columns:1fr}
+  .cards .card:last-child .frame{aspect-ratio:4/3}
+  .schedule{grid-template-columns:1fr 1fr}
+  .hero__meta{gap:1.5rem;flex-wrap:wrap}
+  .hero__actions .btn{width:100%;justify-content:center}
+  .form__row{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .footer__grid{grid-template-columns:1fr}
+  .about__images .frame:first-child{transform:translateY(-1.25rem)}
+}
+@media (max-width:380px){.schedule{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================================
+     HEADER + NAVIGATION
+     ===================================================================== -->
+<header class="site-header">
+  <div class="container">
+    <a href="#top" class="logo" aria-label="Polka Pilates — home">
+      <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/images.png?v=1792592729" alt="Polka Pilates logo">
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span></label>
+
+    <nav aria-label="Main">
+      <ul class="nav-list" style="margin:0">
+        <li><a href="#about">Studio</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#book" class="btn">Book now</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- =====================================================================
+     HERO  (with subtle pattern overlay)
+     ===================================================================== -->
+<section class="hero pattern-bg pattern-bg--soft">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <span class="eyebrow">Boutique Pilates Studio · Downtown</span>
+      <h1>Modern &amp; <em>classic</em> Pilates</h1>
+      <span class="divider"></span>
+      <p class="lead">Small-group reformer and mat classes led by certified instructors, in a calm space designed to help you move well, feel strong and stay consistent.</p>
+      <div class="hero__actions">
+        <a href="#book" class="btn">Book your first class</a>
+        <a href="#classes" class="btn btn--ghost">Explore classes</a>
+      </div>
+      <div class="hero__meta">
+        <div><strong>8</strong><span>Max per class</span></div>
+        <div><strong>40+</strong><span>Weekly classes</span></div>
+        <div><strong>4.9★</strong><span>Member rating</span></div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="frame arch ratio-4-5">
+        <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/polka-pilates-koszykowa-1.webp?v=1792592555" alt="Polka Pilates studio" loading="eager">
+      </div>
+      <div class="stamp">Move<br>with<br>intention</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     ABOUT  (with pattern accent + real photos)
+     ===================================================================== -->
+<section class="section section--sand pattern-bg pattern-bg--soft" id="about">
+  <div class="container about__grid">
+    <div class="about__images">
+      <div class="frame ratio-3-4">
+        <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916885.jpg?v=1792596380" alt="Polka Pilates studio interior" loading="lazy">
+      </div>
+      <div class="frame ratio-3-4">
+        <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916886.jpg?v=1792596380" alt="Polka Pilates class in progress" loading="lazy">
+      </div>
+    </div>
+
+    <div class="about__text">
+      <span class="eyebrow">About the studio</span>
+      <h2>A higher level of <em>Pilates</em></h2>
+      <span class="divider"></span>
+      <p class="lead">Polka is a place for people who want more than a workout. We blend the discipline of classical Pilates with contemporary, strength-focused programming.</p>
+      <p>Every class is capped at eight people, so your instructor can see and correct every movement. Whether you're brand new or years into your practice, you'll leave feeling taller, stronger and calmer.</p>
+      <a href="#classes" class="link-arrow">Meet our approach</a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CLASSES
+     ===================================================================== -->
+<section class="section" id="classes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our classes</span>
+      <h2>Training for every <em>body</em></h2>
+      <p class="lead">Choose the format that fits your goals, then build a rhythm you'll love.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="frame">
+          <img src="https://poznandaily.com/wp-content/uploads/2025/07/pp16.webp" alt="Reformer Flow class" loading="lazy">
+        </div>
+        <div class="card__body">
+          <span class="card__tag">All levels · 55 min</span>
+          <h3>Reformer Flow</h3>
+          <p>Spring-resistance training that builds long, lean strength and body awareness.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="frame">
+          <img src="https://polkapilatesgdansk.pl/wp-content/uploads/2025/01/anngreenstudio_pilatestrzy-63-scaled.jpg" alt="Mat Foundations class" loading="lazy">
+        </div>
+        <div class="card__body">
+          <span class="card__tag">Beginner friendly · 50 min</span>
+          <h3>Mat Foundations</h3>
+          <p>Classical principles—breath, control, precision—taught step by step on the mat.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="frame">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9raH59g-DTUkWnZ0xG13-n_SpdQ-WjQLmqX0pLXW15g&s=10" alt="Sculpt & Strength class" loading="lazy">
+        </div>
+        <div class="card__body">
+          <span class="card__tag">Intermediate · 55 min</span>
+          <h3>Sculpt &amp; Strength</h3>
+          <p>Props, tempo and challenge: a dynamic session to sharpen your core and posture.</p>
+          <a href="#book" class="link-arrow">Book a class</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     BENEFITS — dark section (kept same)
+     ===================================================================== -->
+<section class="section section--dark" id="benefits">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Polka</span>
+      <h2>Small details, <em>big</em> difference</h2>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/><path d="M13 21l5 5 9-11"/></svg>
+        <h3>Certified instructors</h3><p>Internationally trained teachers with years of studio experience.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><circle cx="14" cy="14" r="6"/><circle cx="27" cy="16" r="5"/><path d="M4 33c1-7 6-10 10-10s9 3 10 10M24 25c5 0 9 3 12 8"/></svg>
+        <h3>Max 8 per class</h3><p>Personal attention and corrections in every single session.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><path d="M6 28c4-14 12-18 28-18-1 14-6 22-20 24"/><path d="M6 34c6-8 12-12 18-14"/></svg>
+        <h3>Posture &amp; mobility</h3><p>Build a stronger core, healthier spine and freer movement.</p>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 40 40"><rect x="6" y="9" width="28" height="25" rx="3"/><path d="M6 17h28M13 5v7M27 5v7"/></svg>
+        <h3>Easy online booking</h3><p>Reserve, reschedule or cancel in seconds—anytime, from any device.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PRICING / CLUB
+     ===================================================================== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Polka Club</span>
+      <h2>Simple, flexible <em>pricing</em></h2>
+      <p class="lead">Members enjoy priority booking, studio events and a 48-hour booking window.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Drop-in</h3>
+        <div class="plan__price">$28<small> / class</small></div>
+        <ul><li>Any class, any time</li><li>Mat &amp; towel included</li><li>No commitment</li></ul>
+        <a href="#book" class="btn btn--ghost btn--block">Book a class</a>
+      </div>
+      <div class="plan plan--featured">
+        <span class="plan__badge">Most popular</span>
+        <h3>Club Membership</h3>
+        <div class="plan__price">$149<small> / month</small></div>
+        <ul><li>8 classes per month</li><li>Priority booking window</li><li>10% off workshops</li><li>Bring-a-friend pass</li></ul>
+        <a href="#book" class="btn btn--light btn--block">Join the Club</a>
+      </div>
+      <div class="plan">
+        <h3>10-Class Pack</h3>
+        <div class="plan__price">$240</div>
+        <ul><li>Valid for 4 months</li><li>Shareable with a friend</li><li>Reformer or mat</li></ul>
+        <a href="#book" class="btn btn--ghost btn--block">Buy a pack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     SCHEDULE
+     ===================================================================== -->
+<section class="section section--sand" id="schedule">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Weekly schedule</span>
+      <h2>Find your <em>time</em></h2>
+      <p class="lead">Tap a class to reserve your spot.</p>
+    </div>
+    <div class="schedule">
+      <div class="day"><h3>Mon</h3>
+        <a class="slot" href="#book"><b>07:30</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>12:15</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>18:30</b>Sculpt &amp; Strength</a></div>
+      <div class="day"><h3>Tue</h3>
+        <a class="slot" href="#book"><b>08:00</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>17:45</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>19:00</b>Reformer Flow</a></div>
+      <div class="day"><h3>Wed</h3>
+        <a class="slot" href="#book"><b>07:30</b>Sculpt &amp; Strength</a>
+        <a class="slot" href="#book"><b>12:15</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>18:30</b>Mat Foundations</a></div>
+      <div class="day"><h3>Thu</h3>
+        <a class="slot" href="#book"><b>08:00</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>17:45</b>Sculpt &amp; Strength</a>
+        <a class="slot" href="#book"><b>19:00</b>Mat Foundations</a></div>
+      <div class="day"><h3>Sat</h3>
+        <a class="slot" href="#book"><b>09:30</b>Reformer Flow</a>
+        <a class="slot" href="#book"><b>11:00</b>Mat Foundations</a>
+        <a class="slot" href="#book"><b>12:30</b>Sculpt &amp; Strength</a></div>
+    </div>
+    <div class="schedule-cta"><a href="#book" class="btn">Reserve a spot</a></div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     GALLERY  (6 unique photos)
+     ===================================================================== -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">@polkapilates</span>
+      <h2>Life at the <em>studio</em></h2>
+    </div>
+    <div class="gallery">
+      <div class="frame"><img src="https://polkapilates.pl/warszawa/wp-content/uploads/2026/02/polka-pilates-zlota-1.webp" alt="Polka Pilates studio" loading="lazy"></div>
+      <div class="frame"><img src="https://cdn.prod.rexby.com/image/b715b29fdc67463c8ded685df1d22f7d?format=webp&width=1080&height=1350&quality=80" alt="Pilates class" loading="lazy"></div>
+      <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_NWszylOSEYkuYjbt7vFrAcL9bTJ40iIPtS_uHUFFvB1OKO3QKBsD7is&s=10" alt="Pilates session" loading="lazy"></div>
+      <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916892.jpg?v=1792596380" alt="Polka Pilates studio" loading="lazy"></div>
+      <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVHakne1K5blj3rLVtBnmh9R-XAkwYneDq81Pd5g5-2ThuoFc6PgQIzlo&s=10" alt="Pilates studio" loading="lazy"></div>
+      <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916895.jpg?v=1792596380" alt="Polka Pilates class" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     TESTIMONIALS
+     ===================================================================== -->
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Kind words</span>
+      <h2>What members <em>say</em></h2>
+    </div>
+    <div class="quotes">
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>"The most welcoming studio I've ever practised in. My back pain is gone."</blockquote><cite>— Maria K.</cite></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>"Small classes and brilliant teachers. I finally look forward to workouts."</blockquote><cite>— Daniel S.</cite></figure>
+      <figure class="quote"><div class="stars">★★★★★</div><blockquote>"Booking is effortless and every class feels like a reset for the week."</blockquote><cite>— Anna P.</cite></figure>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FAQ
+     ===================================================================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good to <em>know</em></h2>
+    </div>
+    <div class="faq">
+      <details open><summary>I'm a complete beginner. Can I join?</summary><p>Absolutely. Start with Mat Foundations or a beginner Reformer Flow; your instructor will guide you through every move.</p></details>
+      <details><summary>What should I wear?</summary><p>Comfortable, fitted activewear and grip socks (available to buy at reception).</p></details>
+      <details><summary>How do I cancel or reschedule?</summary><p>You can cancel free of charge up to 8 hours before class from your booking confirmation.</p></details>
+      <details><summary>Do you offer private sessions?</summary><p>Yes — one-to-one and duo sessions are available. Get in touch below and we'll match you with an instructor.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     BOOKING CTA  (with pattern background)
+     ===================================================================== -->
+<section class="section section--sand pattern-bg pattern-bg--strong" id="book">
+  <div class="container center">
+    <span class="eyebrow">Ready when you are</span>
+    <h2>Your first class is <em>on us</em></h2>
+    <span class="divider"></span>
+    <p class="lead">New to Polka? Book an intro class and take the first step. Spots fill quickly.</p>
+    <a href="#contact" class="btn">Book your free intro class</a>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CONTACT
+     ===================================================================== -->
+<section class="section" id="contact">
+  <div class="container contact__grid">
+    <div>
+      <span class="eyebrow">Contact</span>
+      <h2>Say <em>hello</em></h2>
+      <p class="lead">Questions, private sessions or corporate groups? Write to us or send a booking request.</p>
+      <dl class="contact__list">
+        <div><dt>Studio</dt><dd>12 Linden Street, Downtown<br>Your City, 10001</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:hello@polkapilates.example">hello@polkapilates.example</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+10000000000">+1 (000) 000-0000</a></dd></div>
+        <div><dt>Hours</dt><dd>Mon–Fri 07:00–21:00 · Sat 09:00–14:00</dd></div>
+      </dl>
+    </div>
+
+    <form class="form" action="mailto:hello@polkapilates.example" method="post" enctype="text/plain">
+      <div class="form__row">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="field"><label for="cls">Class</label>
+        <select id="cls" name="class"><option>Intro class (free)</option><option>Reformer Flow</option><option>Mat Foundations</option><option>Sculpt &amp; Strength</option><option>Private session</option></select></div>
+      <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" placeholder="Preferred day and time…"></textarea></div>
+      <button type="submit" class="btn btn--block">Send booking request</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     FOOTER  (with pattern background)
+     ===================================================================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="#top" class="logo"><img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/images.png?v=1792592729" alt="Polka Pilates logo"></a>
+        <p style="max-width:22rem">Modern &amp; classic Pilates in small groups. Move well. Feel strong.</p>
+        <a href="#book" class="btn btn--light" style="margin-top:.5rem">Book now</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#about">Studio</a></li><li><a href="#classes">Classes</a></li><li><a href="#schedule">Schedule</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li><a href="mailto:hello@polkapilates.example">hello@polkapilates.example</a></li><li>12 Linden Street</li><li>Mon–Sat · see hours above</li></ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Polka Pilates. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
