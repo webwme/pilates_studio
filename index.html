@@ -16,11 +16,11 @@
 
 <style>
 /* =====================================================================
-   1. DESIGN TOKENS  (soft pink + cream beige palette)
+   1. DESIGN TOKENS  (soft pink + warm beige palette)
    ===================================================================== */
 :root{
   --cream:      #fff0f5;
-  --sand:       #fdf6f0;
+  --sand:       #f0e4d4;   /* warm beige - more visible */
   --blush:      #f5d5d5;
   --clay:       #d4a5a5;
   --clay-dark:  #b88a8a;
@@ -37,7 +37,7 @@
   --section-y: clamp(4.5rem, 9vw, 8rem);
   --radius: 1.25rem;
   --header-h: 76px;
-  --shadow: 0 18px 40px -22px rgba(43,36,32,.25);
+  --shadow: 0 18px 40px -22px rgba(184,138,138,.3);
 
   /* Pattern SVG URL */
   --pattern-url: url('https://cdn.shopify.com/s/files/1/0762/4107/6293/files/1.svg?v=1792594734');
@@ -122,9 +122,29 @@ em{font-style:italic;color:var(--clay-dark)}
 .link-arrow::after{content:" →"}
 .link-arrow:hover{color:var(--clay-dark);letter-spacing:.2em}
 
-/* ---- Frames ---- */
-.frame{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--blush);box-shadow:var(--shadow)}
-.frame > svg,.frame > img{width:100%;height:100%;object-fit:cover}
+/* ---- Frames with soft blending ---- */
+.frame{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius);
+  background:var(--blush);
+  box-shadow:0 12px 32px -16px rgba(184,138,138,.25);
+  border:3px solid rgba(255,250,245,.6);
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.frame > svg,.frame > img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s ease;
+}
+.frame:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 48px -20px rgba(184,138,138,.35);
+}
+.frame:hover > img{
+  transform:scale(1.03);
+}
 .ratio-4-5{aspect-ratio:4/5}
 .ratio-1-1{aspect-ratio:1/1}
 .ratio-3-4{aspect-ratio:3/4}
@@ -180,21 +200,79 @@ em{font-style:italic;color:var(--clay-dark)}
 .nav-list .btn{padding:.75rem 1.5rem}
 
 /* =====================================================================
-   5. HERO
+   5. HERO — Full-screen background with overlay (Option D)
    ===================================================================== */
-.hero{padding-block:clamp(3rem,7vw,6rem) var(--section-y);overflow:hidden}
-.hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
-.hero h1 em{display:block}
-.hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
-.hero__meta{display:flex;gap:2.5rem;margin-top:3rem;padding-top:1.75rem;border-top:1px solid rgba(43,36,32,.12)}
-.hero__meta strong{display:block;font:500 2.2rem/1 var(--font-display);color:var(--ink)}
-.hero__meta span{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
-.hero__visual{position:relative}
-.hero__visual .stamp{
-  position:absolute;left:-2rem;bottom:2.5rem;width:120px;height:120px;border-radius:50%;
-  background:var(--ink);color:var(--cream);display:grid;place-items:center;text-align:center;
-  font:italic 500 1.05rem/1.15 var(--font-display);padding:1rem;box-shadow:var(--shadow);
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  margin-top:calc(-1 * var(--header-h));
+  padding-top:var(--header-h);
 }
+.hero__bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.hero__bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.hero__bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(43,36,32,.3) 0%,
+    rgba(43,36,32,.5) 50%,
+    rgba(43,36,32,.7) 100%
+  );
+}
+.hero__content{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  max-width:700px;
+  padding:clamp(2rem,5vw,4rem);
+  background:rgba(255,240,245,.15);
+  backdrop-filter:blur(12px);
+  border-radius:var(--radius);
+  border:1px solid rgba(255,250,245,.2);
+}
+.hero__content h1,
+.hero__content .eyebrow,
+.hero__content .lead{
+  color:var(--white);
+}
+.hero__content h1 em{
+  color:#f5d5d5;
+}
+.hero__content .eyebrow{
+  color:#f5d5d5;
+}
+.hero__content .divider{
+  background:rgba(245,213,213,.6);
+  margin-inline:auto;
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center}
+.hero__actions .btn--ghost{
+  color:var(--white);
+  border-color:var(--white);
+}
+.hero__actions .btn--ghost:hover{
+  background:var(--white);
+  border-color:var(--white);
+  color:var(--ink);
+}
+.hero__meta{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid rgba(255,250,245,.3);justify-content:center}
+.hero__meta strong{display:block;font:500 2.2rem/1 var(--font-display);color:var(--white)}
+.hero__meta span{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,250,245,.85)}
 
 /* =====================================================================
    6. ABOUT
@@ -210,11 +288,16 @@ em{font-style:italic;color:var(--clay-dark)}
 .section-head{max-width:40rem;margin:0 auto clamp(2.5rem,5vw,4rem);text-align:center}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
 .card{
-  background:var(--white);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+  background:var(--white);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
   transition:transform .35s,box-shadow .35s;
+  border:2px solid rgba(240,228,212,.5);
 }
-.card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
-.card .frame{border-radius:0;box-shadow:none;aspect-ratio:4/3}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 48px -20px rgba(184,138,138,.35)}
+.card .frame{border-radius:0;box-shadow:none;aspect-ratio:4/3;border:none}
 .card .frame svg,.card .frame img{transition:transform .6s}
 .card:hover .frame svg,.card:hover .frame img{transform:scale(1.06)}
 .card__body{padding:1.75rem 1.75rem 2rem;display:flex;flex-direction:column;flex:1}
@@ -266,18 +349,26 @@ em{font-style:italic;color:var(--clay-dark)}
 .schedule-cta{margin-top:2.5rem;text-align:center}
 
 /* =====================================================================
-   11. GALLERY
+   11. GALLERY — enhanced with soft borders
    ===================================================================== */
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-.gallery .frame{aspect-ratio:1/1;border-radius:.9rem;box-shadow:none}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.gallery .frame{
+  aspect-ratio:1/1;
+  border-radius:.9rem;
+  box-shadow:0 8px 24px -12px rgba(184,138,138,.2);
+  border:3px solid rgba(240,228,212,.6);
+}
 .gallery .frame img{transition:transform .6s}
 .gallery .frame:hover img{transform:scale(1.08)}
+.gallery .frame:hover{
+  border-color:rgba(212,165,165,.4);
+}
 
 /* =====================================================================
    12. TESTIMONIALS
    ===================================================================== */
 .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.quote{margin:0;padding:2rem;background:var(--white);border-radius:var(--radius)}
+.quote{margin:0;padding:2rem;background:var(--white);border-radius:var(--radius);border:2px solid rgba(240,228,212,.4)}
 .quote blockquote{margin:0 0 1.25rem;font:italic 400 1.4rem/1.45 var(--font-display);color:var(--ink)}
 .quote cite{font-style:normal;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay-dark);font-weight:500}
 .stars{color:var(--clay);letter-spacing:.2em;margin-bottom:.75rem}
@@ -305,7 +396,7 @@ em{font-style:italic;color:var(--clay-dark)}
 .contact__list dt{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-dark);font-weight:500;margin-bottom:.2rem}
 .contact__list dd{margin:0;color:var(--ink)}
 .contact__list a:hover{color:var(--clay-dark)}
-.form{background:var(--white);padding:clamp(1.75rem,4vw,2.75rem);border-radius:var(--radius);box-shadow:var(--shadow)}
+.form{background:var(--white);padding:clamp(1.75rem,4vw,2.75rem);border-radius:var(--radius);box-shadow:var(--shadow);border:2px solid rgba(240,228,212,.5)}
 .field{margin-bottom:1.25rem}
 .field label{display:block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:.45rem;font-weight:500}
 .field input,.field select,.field textarea{
@@ -378,13 +469,12 @@ em{font-style:italic;color:var(--clay-dark)}
   .nav-toggle:checked ~ .nav-burger::after{top:21px;transform:rotate(-45deg)}
   .nav-toggle:focus-visible ~ .nav-burger{outline:2px solid var(--clay);border-radius:6px}
 
-  .hero__grid,.about__grid,.contact__grid{grid-template-columns:1fr}
-  .hero__visual{max-width:440px;margin-inline:auto;order:-1}
-  .hero__visual .stamp{left:-.5rem;width:100px;height:100px;font-size:.92rem}
+  .about__grid,.contact__grid{grid-template-columns:1fr}
   .about__images{max-width:520px}
   .pricing{grid-template-columns:1fr;max-width:460px;margin-inline:auto}
   .footer__grid{grid-template-columns:1fr 1fr}
   .footer__grid > :first-child{grid-column:1/-1}
+  .hero__meta{gap:1.5rem;flex-wrap:wrap}
 }
 
 @media (max-width:600px){
@@ -392,12 +482,12 @@ em{font-style:italic;color:var(--clay-dark)}
   .cards,.features{grid-template-columns:1fr}
   .cards .card:last-child .frame{aspect-ratio:4/3}
   .schedule{grid-template-columns:1fr 1fr}
-  .hero__meta{gap:1.5rem;flex-wrap:wrap}
   .hero__actions .btn{width:100%;justify-content:center}
   .form__row{grid-template-columns:1fr}
-  .gallery{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .gallery{grid-template-columns:repeat(2,1fr);gap:.8rem}
   .footer__grid{grid-template-columns:1fr}
   .about__images .frame:first-child{transform:translateY(-1.25rem)}
+  .hero__content{padding:1.5rem}
 }
 @media (max-width:380px){.schedule{grid-template-columns:1fr}}
 </style>
@@ -434,12 +524,15 @@ em{font-style:italic;color:var(--clay-dark)}
 <main id="top">
 
 <!-- =====================================================================
-     HERO  (with subtle pattern overlay)
+     HERO — Full-screen background with overlay (Option D)
      ===================================================================== -->
-<section class="hero pattern-bg pattern-bg--soft">
-  <div class="container hero__grid">
-    <div class="hero__text">
-      <span class="eyebrow">Boutique Pilates Studio · Downtown</span>
+<section class="hero">
+  <div class="hero__bg">
+    <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/polka-pilates-koszykowa-1.webp?v=1792592555" alt="Polka Pilates studio" loading="eager">
+  </div>
+  <div class="container">
+    <div class="hero__content">
+      <span class="eyebrow">Boutique Pilates Studio</span>
       <h1>Modern &amp; <em>classic</em> Pilates</h1>
       <span class="divider"></span>
       <p class="lead">Small-group reformer and mat classes led by certified instructors, in a calm space designed to help you move well, feel strong and stay consistent.</p>
@@ -452,13 +545,6 @@ em{font-style:italic;color:var(--clay-dark)}
         <div><strong>40+</strong><span>Weekly classes</span></div>
         <div><strong>4.9★</strong><span>Member rating</span></div>
       </div>
-    </div>
-
-    <div class="hero__visual">
-      <div class="frame arch ratio-4-5">
-        <img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/polka-pilates-koszykowa-1.webp?v=1792592555" alt="Polka Pilates studio" loading="eager">
-      </div>
-      <div class="stamp">Move<br>with<br>intention</div>
     </div>
   </div>
 </section>
@@ -640,7 +726,7 @@ em{font-style:italic;color:var(--clay-dark)}
 </section>
 
 <!-- =====================================================================
-     GALLERY  (6 unique photos)
+     GALLERY  (8 unique photos - 2 full rows)
      ===================================================================== -->
 <section class="section" id="gallery">
   <div class="container">
@@ -650,11 +736,13 @@ em{font-style:italic;color:var(--clay-dark)}
     </div>
     <div class="gallery">
       <div class="frame"><img src="https://polkapilates.pl/warszawa/wp-content/uploads/2026/02/polka-pilates-zlota-1.webp" alt="Polka Pilates studio" loading="lazy"></div>
-      <div class="frame"><img src="https://cdn.prod.rexby.com/image/b715b29fdc67463c8ded685df1d22f7d?format=webp&width=1080&height=1350&quality=80" alt="Pilates class" loading="lazy"></div>
+      <div class="frame"><img src="https://polkapilates.pl/warszawa/wp-content/uploads/2025/08/polka-pilates-2.png" alt="Pilates class" loading="lazy"></div>
       <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_NWszylOSEYkuYjbt7vFrAcL9bTJ40iIPtS_uHUFFvB1OKO3QKBsD7is&s=10" alt="Pilates session" loading="lazy"></div>
       <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916892.jpg?v=1792596380" alt="Polka Pilates studio" loading="lazy"></div>
       <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVHakne1K5blj3rLVtBnmh9R-XAkwYneDq81Pd5g5-2ThuoFc6PgQIzlo&s=10" alt="Pilates studio" loading="lazy"></div>
       <div class="frame"><img src="https://cdn.shopify.com/s/files/1/0762/4107/6293/files/5388631665564916895.jpg?v=1792596380" alt="Polka Pilates class" loading="lazy"></div>
+      <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRb1mT_lB9n0_W7oXJ-MLIYwECElRZmMrVVUPP7KJptNRBuGnwRkfYWfk&s=10" alt="Polka Pilates studio" loading="lazy"></div>
+      <div class="frame"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKBvmm-9cnoHI-vmIIg5tYR3cdH3Vtb7yYmnLaS0epT4CHCNcGSCu6HVY&s=10" alt="Polka Pilates class" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -717,14 +805,13 @@ em{font-style:italic;color:var(--clay-dark)}
       <h2>Say <em>hello</em></h2>
       <p class="lead">Questions, private sessions or corporate groups? Write to us or send a booking request.</p>
       <dl class="contact__list">
-        <div><dt>Studio</dt><dd>12 Linden Street, Downtown<br>Your City, 10001</dd></div>
-        <div><dt>Email</dt><dd><a href="mailto:hello@polkapilates.example">hello@polkapilates.example</a></dd></div>
-        <div><dt>Phone</dt><dd><a href="tel:+10000000000">+1 (000) 000-0000</a></dd></div>
+        <div><dt>Studio</dt><dd>Widzew<br>Łódź</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:hello@polkapilates.com">hello@polkapilates.com</a></dd></div>
         <div><dt>Hours</dt><dd>Mon–Fri 07:00–21:00 · Sat 09:00–14:00</dd></div>
       </dl>
     </div>
 
-    <form class="form" action="mailto:hello@polkapilates.example" method="post" enctype="text/plain">
+    <form class="form" action="mailto:hello@polkapilates.com" method="post" enctype="text/plain">
       <div class="form__row">
         <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required autocomplete="name"></div>
         <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
@@ -756,7 +843,7 @@ em{font-style:italic;color:var(--clay-dark)}
       </div>
       <div>
         <h4>Contact</h4>
-        <ul><li><a href="mailto:hello@polkapilates.example">hello@polkapilates.example</a></li><li>12 Linden Street</li><li>Mon–Sat · see hours above</li></ul>
+        <ul><li><a href="mailto:hello@polkapilates.com">hello@polkapilates.com</a></li><li>Widzew, Łódź</li><li>Mon–Sat · see hours above</li></ul>
       </div>
     </div>
     <div class="footer__bottom">
